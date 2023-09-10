@@ -1,6 +1,6 @@
 # Learning-SQL-With-Real-Cases
 
-It's time to gain experience by making SQL queries with different data sets. The source is in Turkish, but I will try to publish it in English. Data sets were randomly generated. It is not real data.
+It's time to gain experience by making SQL queries with different data sets. The source is in Turkish, but I will try to publish it in English. Data sets were randomly generated. It is not real data. Each case contains different queries, from easy to difficult.
 
 This repository serves as the solution for the 5 case studies from the **[#Alıştırmalarla SQL Öğreniyorum](https://www.udemy.com/course/alistirmalarla-sql-ogreniyorum/)**. 
 
