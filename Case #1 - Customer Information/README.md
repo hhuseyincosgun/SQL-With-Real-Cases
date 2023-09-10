@@ -1,9 +1,5 @@
 # 🍜 Case Study #1: Danny's Diner 
-<img src="https://user-images.githubusercontent.com/81607668/127727503-9d9e7a25-93cb-4f95-8bd0-20b87cb4b459.png" alt="Image" width="500" height="520">
-
-
-![alt text]([http://url/to/img.png](https://github.com/hhuseyincosgun/Learning-SQL-With-Real-Cases/blob/main/Case%20%231%20-%20Customer%20Information/Cover.png))
-
+![Cover](https://github.com/hhuseyincosgun/Learning-SQL-With-Real-Cases/assets/21257660/8ff07d2b-380d-417c-9c3f-ddae00f38719)
 
 
 ## 📚 Table of Contents
