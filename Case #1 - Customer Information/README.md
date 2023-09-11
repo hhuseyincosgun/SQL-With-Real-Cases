@@ -28,7 +28,7 @@ We will make SQL queries with a data set containing customer information. There 
 ## Queries and Solutions
 
 
-**1. List all the information of 10 customers whose names start with the letter 'A'.**
+**Q1# List all the information of 10 customers whose names start with the letter 'A'.**
 
 Query results are limited to 10.
 ````sql
@@ -50,7 +50,7 @@ WHERE CUSTOMERNAME LIKE 'A%'
 | 100 | Adil KINALI          | 62403300353 | E      | a_kinali@miuul.com    | 29.04.1995 | 21     | 675        | (542)5082498 | (533)8398360 |
 |     |
 ***
-**2.The list of 10 male customers whose names start with A.**
+**Q2# The list of 10 male customers whose names start with A.**
 
 Query results are limited to 10.
 ````sql
@@ -73,7 +73,7 @@ AND GENDER='E'
 | 224 | Azad KAYAR           | 12138400338 | E      | a_kayar@miuul.com     | 22.03.1981 | 37     | 174        | (553)8521332 | (555)7492984 |
 |     |
 ***
-**3.5 Customers born between 1990 and 1995. (These years are included).**
+**Q3# 5 Customers born between 1990 and 1995. (These years are included).**
 
 Query results are limited to 5.
 
@@ -95,6 +95,7 @@ Solution-3:
 SELECT TOP 5 * FROM CUSTOMERS
 WHERE YEAR(BIRTHDATE) BETWEEN 1990 AND 1995
 ````
+#### Answer:
 | ID | CUSTOMERNAME     | TCNUMBER    | GENDER | EMAIL                  | BIRTHDATE  | CITYID | DISTRICTID | TELNR1       | TELNR2       |
 | -- | ---------------- | ----------- | ------ | ---------------------- | ---------- | ------ | ---------- | ------------ | ------------ |
 | 6  | Ahmet İNCİKAPI   | 6722155596  | E      | a_incikapi@miuul.com   | 28.05.1991 | 53     | 225        | (532)2414618 | (538)8459085 |
@@ -103,3 +104,45 @@ WHERE YEAR(BIRTHDATE) BETWEEN 1990 AND 1995
 | 14 | Selim ÖZBAY      | 77720855989 | E      | s_ozbay@miuul.com      | 2.10.1992  | 73     | 815        | (535)5906635 | (533)4273519 |
 | 30 | Bülent KAÇAROĞLU | 21971116249 | E      | b_kacaroglu@miuul.com  | 9.01.1995  | 42     | 311        | (554)6844639 | (541)5324664 |
 |    |
+
+**Q4# Listing 5 people living in Istanbul using JOIN.**
+
+````sql
+SELECT TOP 5 C.*, CT.CITY FROM CUSTOMERS C
+INNER JOIN CITIES CT ON C.CITYID = CT.ID
+WHERE CT.CITY = 'İSTANBUL'
+````
+#### Answer:
+| ID  | CUSTOMERNAME      | TCNUMBER    | GENDER | EMAIL                 | BIRTHDATE  | CITYID | DISTRICTID | TELNR1       | TELNR2       | CITY     |
+| --- | ----------------- | ----------- | ------ | --------------------- | ---------- | ------ | ---------- | ------------ | ------------ | -------- |
+| 15  | Yasin AĞAGÜL      | 32764684197 | E      | y_agagvl@miuul.com    | 19.10.1979 | 34     | 897        | (532)6102663 | (537)3381012 | İSTANBUL |
+| 88  | Sebahat CİLALITAŞ | 65960134490 | K      | s_cilalitas@miuul.com | 30.09.1978 | 34     | 64         | (535)7019065 | (532)2408341 | İSTANBUL |
+| 97  | Deniz BENDER      | 31619199155 | E      | d_bender@miuul.com    | 4.04.1986  | 34     | 134        | (542)4181722 | (536)4621320 | İSTANBUL |
+| 101 | Çağla BEĞEN       | 85581395736 | K      | c_begen@miuul.com     | 22.12.1991 | 34     | 81         | (535)1338012 | (533)8331511 | İSTANBUL |
+| 127 | Nurettin GAYRETLİ | 2822523822  | E      | n_gayretli@miuul.com  | 27.04.1950 | 34     | 84         | (532)7969080 | (536)7322740 | İSTANBUL |
+
+*Number of customers from Istanbul(34):*
+````sql
+SELECT COUNT(CITYID) FROM CUSTOMERS 
+WHERE CITYID=34
+````
+Output:
+| 47 |
+| -- |
+
+**Q5# Listing 5 people living in Istanbul using SUBQUERY.**
+````sql
+SELECT 
+TOP 5 * FROM CUSTOMERS C
+WHERE C.CITYID IN (SELECT ID FROM CITIES WHERE CITY IN ('İSTANBUL'))
+````
+
+#### Answer:
+| ID  | CUSTOMERNAME      | TCNUMBER    | GENDER | EMAIL                 | BIRTHDATE  | CITYID | DISTRICTID | TELNR1       | TELNR2       |
+| --- | ----------------- | ----------- | ------ | --------------------- | ---------- | ------ | ---------- | ------------ | ------------ |
+| 15  | Yasin AĞAGÜL      | 32764684197 | E      | y_agagvl@miuul.com    | 19.10.1979 | 34     | 897        | (532)6102663 | (537)3381012 |
+| 88  | Sebahat CİLALITAŞ | 65960134490 | K      | s_cilalitas@miuul.com | 30.09.1978 | 34     | 64         | (535)7019065 | (532)2408341 |
+| 97  | Deniz BENDER      | 31619199155 | E      | d_bender@miuul.com    | 4.04.1986  | 34     | 134        | (542)4181722 | (536)4621320 |
+| 101 | Çağla BEĞEN       | 85581395736 | K      | c_begen@miuul.com     | 22.12.1991 | 34     | 81         | (535)1338012 | (533)8331511 |
+| 127 | Nurettin GAYRETLİ | 2822523822  | E      | n_gayretli@miuul.com  | 27.04.1950 | 34     | 84         | (532)7969080 | (536)7322740 |
+|     |
