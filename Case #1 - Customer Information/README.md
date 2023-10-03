@@ -299,4 +299,92 @@ WHERE DATEDIFF(YEAR, BIRTHDATE, GETDATE()) > 65
 | Ali Eymen DEVE        | 36-45 Age | 38  |
 | Muhammed Ali ABDULLAH | 36-45 Age | 36  |
 
-**Q12# soru-24.**
+**Q12# Customers tablosunda müşterinin yaşına göre hesaplayarak toplam müşteri sayılarını yazdırınız.**
+
+Solution-1:
+````sql
+SELECT AGEGROUP, COUNT(*) AS CUSTOMERCOUNT
+FROM CUSTOMERS
+GROUP BY AGEGROUP
+ORDER BY CUSTOMERCOUNT DESC
+````
+
+| AGEGROUP  | CUSTOMERCOUNT |
+| --------- | ------------- |
+| 65 Over   | 266           |
+| 20-35 Age | 207           |
+| 46-55 Age | 163           |
+| 56-65 Age | 161           |
+| 36-45 Age | 154           |
+
+Solution-2: 
+
+````sql
+SELECT 
+CASE
+	WHEN DATEDIFF(YEAR, BIRTHDATE, GETDATE()) BETWEEN 20 AND 35 THEN '20-35'
+	WHEN DATEDIFF(YEAR, BIRTHDATE, GETDATE()) BETWEEN 36 AND 45 THEN '36-45'
+	WHEN DATEDIFF(YEAR, BIRTHDATE, GETDATE()) BETWEEN 46 AND 55 THEN '46-55'
+	WHEN DATEDIFF(YEAR, BIRTHDATE, GETDATE()) BETWEEN 56 AND 65 THEN '56-65'
+	WHEN DATEDIFF(YEAR, BIRTHDATE, GETDATE()) > 65 THEN '65 Over'
+END AGEGROUP,
+COUNT(*) CUSTOMERCOUNT
+FROM CUSTOMERS
+GROUP BY
+ CASE
+	WHEN DATEDIFF(YEAR, BIRTHDATE, GETDATE()) BETWEEN 20 AND 35 THEN '20-35'
+	WHEN DATEDIFF(YEAR, BIRTHDATE, GETDATE()) BETWEEN 36 AND 45 THEN '36-45'
+	WHEN DATEDIFF(YEAR, BIRTHDATE, GETDATE()) BETWEEN 46 AND 55 THEN '46-55'
+	WHEN DATEDIFF(YEAR, BIRTHDATE, GETDATE()) BETWEEN 56 AND 65 THEN '56-65'
+	WHEN DATEDIFF(YEAR, BIRTHDATE, GETDATE()) > 65 THEN '65 Over'
+END
+
+ORDER BY AGEGROUP
+````
+Solution-3:
+````sql
+SELECT AGEGROUP2, COUNT(TMP.ID) AS CUSTOMERCOUNT FROM
+(
+SELECT *, 
+CASE
+	WHEN DATEDIFF(YEAR, BIRTHDATE, GETDATE()) BETWEEN 20 AND 35 THEN '20-35'
+	WHEN DATEDIFF(YEAR, BIRTHDATE, GETDATE()) BETWEEN 36 AND 45 THEN '36-45'
+	WHEN DATEDIFF(YEAR, BIRTHDATE, GETDATE()) BETWEEN 46 AND 55 THEN '46-55'
+	WHEN DATEDIFF(YEAR, BIRTHDATE, GETDATE()) BETWEEN 56 AND 65 THEN '56-65'
+	WHEN DATEDIFF(YEAR, BIRTHDATE, GETDATE()) > 65 THEN '65 Over'
+END AGEGROUP2
+FROM CUSTOMERS
+) TMP
+GROUP BY AGEGROUP2
+ORDER BY AGEGROUP2 
+````
+**Q13# İstanbul şehrinde yaşayıp Kadıköy dışında olanları listeleyiniz.**
+
+Solution-1:
+````sql
+SELECT TOP 10 * FROM CUSTOMERS C
+WHERE C.DISTRICTID IN (SELECT ID FROM DISTRICTS WHERE DISTRICT NOT IN ('KADIKÖY'))
+AND C.CITYID IN (SELECT ID FROM CITIES WHERE CITY IN ('İSTANBUL'))
+````
+Solution-2:
+````sql
+SELECT * FROM CUSTOMERS C
+INNER JOIN CITIES CT ON CT.ID = C.CITYID
+INNER JOIN DISTRICTS D ON D.ID = C.DISTRICTID
+WHERE CT.CITY = 'İSTANBUL' AND D.DISTRICT != 'KADIKÖY'
+````
+
+| ID  | CUSTOMERNAME          | TCNUMBER    | GENDER | EMAIL                  | BIRTHDATE  | CITYID | DISTRICTID | TELNR1       | TELNR2       | AGEGROUP  |
+| --- | --------------------- | ----------- | ------ | ---------------------- | ---------- | ------ | ---------- | ------------ | ------------ | --------- |
+| 15  | Yasin AĞAGÜL          | 32764684197 | E      | y_agagvl@miuul.com     | 19.10.1979 | 34     | 897        | (532)6102663 | (537)3381012 | 36-45 Age |
+| 88  | Sebahat CİLALITAŞ     | 65960134490 | K      | s_cilalitas@miuul.com  | 30.09.1978 | 34     | 64         | (535)7019065 | (532)2408341 | 36-45 Age |
+| 97  | Deniz BENDER          | 31619199155 | E      | d_bender@miuul.com     | 4.04.1986  | 34     | 134        | (542)4181722 | (536)4621320 | 36-45 Age |
+| 101 | Çağla BEĞEN           | 85581395736 | K      | c_begen@miuul.com      | 22.12.1991 | 34     | 81         | (535)1338012 | (533)8331511 | 20-35 Age |
+| 127 | Nurettin GAYRETLİ     | 2822523822  | E      | n_gayretli@miuul.com   | 27.04.1950 | 34     | 84         | (532)7969080 | (536)7322740 | 65 Over   |
+| 139 | Yeliz KÜÇÜKALP        | 65432369284 | K      | y_kvcvkalp@miuul.com   | 26.02.1965 | 34     | 488        | (555)9613650 | (543)1071715 | 56-65 Age |
+| 164 | Eylül GÜLÜ            | 56388773535 | K      | e_gvlv@miuul.com       | 24.08.1969 | 34     | 3          | (537)5953916 | (532)4647711 | 46-55 Age |
+| 174 | Müzeyyen OCAKÇI       | 89589164667 | K      | m_ocakci@miuul.com     | 19.02.1972 | 34     | 707        | (543)1576124 | (505)9181537 | 46-55 Age |
+| 199 | Muhammed Emin TEKKAYA | 87271968026 | E      | m_emin@miuul.com       | 19.04.1984 | 34     | 897        | (542)2911632 | (535)9881318 | 36-45 Age |
+| 208 | Neslihan KILIÇÇEKER   | 53734331933 | K      | n_kilicceker@miuul.com | 4.10.1982  | 34     | 707        | (543)1432619 | (505)2287257 | 36-45 Age |
+|     |
+
