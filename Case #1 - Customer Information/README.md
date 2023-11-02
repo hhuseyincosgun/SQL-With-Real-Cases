@@ -25,7 +25,7 @@ We will make SQL queries with a data set containing customer information. There 
 ![db](https://github.com/hhuseyincosgun/Learning-SQL-With-Real-Cases/assets/21257660/b600377b-4af9-4f24-ae0c-8b0efebce307)
 ***
 
-## Queries and Solutions
+## Queries and Results
 
 
 **Q1# List all the information of 10 customers whose names start with the letter 'A'.**
@@ -35,7 +35,7 @@ Query results are limited to 10.
 SELECT TOP 10 * FROM CUSTOMERS
 WHERE CUSTOMERNAME LIKE 'A%'
 ````
-#### Answer:
+#### Result:
 | ID  | CUSTOMERNAME         | TCNUMBER    | GENDER | EMAIL                 | BIRTHDATE  | CITYID | DISTRICTID | TELNR1       | TELNR2       |
 | --- | -------------------- | ----------- | ------ | --------------------- | ---------- | ------ | ---------- | ------------ | ------------ |
 | 6   | Ahmet İNCİKAPI       | 6722155596  | E      | a_incikapi@miuul.com  | 28.05.1991 | 53     | 225        | (532)2414618 | (538)8459085 |
@@ -58,7 +58,7 @@ SELECT TOP 10 * FROM CUSTOMERS
 WHERE CUSTOMERNAME LIKE 'A%'
 AND GENDER='E'
 ````
-#### Answer:
+#### Result:
 | ID  | CUSTOMERNAME         | TCNUMBER    | GENDER | EMAIL                 | BIRTHDATE  | CITYID | DISTRICTID | TELNR1       | TELNR2       |
 | --- | -------------------- | ----------- | ------ | --------------------- | ---------- | ------ | ---------- | ------------ | ------------ |
 | 6   | Ahmet İNCİKAPI       | 6722155596  | E      | a_incikapi@miuul.com  | 28.05.1991 | 53     | 225        | (532)2414618 | (538)8459085 |
@@ -95,7 +95,7 @@ Solution-3:
 SELECT TOP 5 * FROM CUSTOMERS
 WHERE YEAR(BIRTHDATE) BETWEEN 1990 AND 1995
 ````
-#### Answer:
+#### Result:
 | ID | CUSTOMERNAME     | TCNUMBER    | GENDER | EMAIL                  | BIRTHDATE  | CITYID | DISTRICTID | TELNR1       | TELNR2       |
 | -- | ---------------- | ----------- | ------ | ---------------------- | ---------- | ------ | ---------- | ------------ | ------------ |
 | 6  | Ahmet İNCİKAPI   | 6722155596  | E      | a_incikapi@miuul.com   | 28.05.1991 | 53     | 225        | (532)2414618 | (538)8459085 |
@@ -112,7 +112,7 @@ SELECT TOP 5 C.*, CT.CITY FROM CUSTOMERS C
 INNER JOIN CITIES CT ON C.CITYID = CT.ID
 WHERE CT.CITY = 'İSTANBUL'
 ````
-#### Answer:
+#### Result:
 | ID  | CUSTOMERNAME      | TCNUMBER    | GENDER | EMAIL                 | BIRTHDATE  | CITYID | DISTRICTID | TELNR1       | TELNR2       | CITY     |
 | --- | ----------------- | ----------- | ------ | --------------------- | ---------- | ------ | ---------- | ------------ | ------------ | -------- |
 | 15  | Yasin AĞAGÜL      | 32764684197 | E      | y_agagvl@miuul.com    | 19.10.1979 | 34     | 897        | (532)6102663 | (537)3381012 | İSTANBUL |
@@ -137,7 +137,7 @@ TOP 5 * FROM CUSTOMERS C
 WHERE C.CITYID IN (SELECT ID FROM CITIES WHERE CITY IN ('İSTANBUL'))
 ````
 
-#### Answer:
+#### Result:
 | ID  | CUSTOMERNAME      | TCNUMBER    | GENDER | EMAIL                 | BIRTHDATE  | CITYID | DISTRICTID | TELNR1       | TELNR2       |
 | --- | ----------------- | ----------- | ------ | --------------------- | ---------- | ------ | ---------- | ------------ | ------------ |
 | 15  | Yasin AĞAGÜL      | 32764684197 | E      | y_agagvl@miuul.com    | 19.10.1979 | 34     | 897        | (532)6102663 | (537)3381012 |
@@ -154,6 +154,8 @@ SELECT CT.CITY, COUNT(C.ID) AS CUSTOMERCOUNT FROM CUSTOMERS C
 INNER JOIN CITIES CT ON CT.ID=C.CITYID
 GROUP BY CT.CITY
 ````
+
+#### Result:
 | CITY           | CUSTOMERCOUNT |
 | -------------- | ------------- |
 | ADANA          | 16            |
@@ -170,7 +172,7 @@ SELECT TOP 10 *,
 FROM CITIES CT
 ORDER BY 3 DESC
 ````
-
+#### Result:
 | ID | CITY       | CUSTOMERCOUNT |
 | -- | ---------- | ------------- |
 | 73 | ŞIRNAK     | 110           |
@@ -205,6 +207,7 @@ WHERE
 ORDER BY 3 DESC
 ````
 
+#### Result:
 | CITY      | CUSTOMERCOUNT |
 | --------- | ------------- |
 | ŞIRNAK    | 110           |
@@ -227,6 +230,7 @@ GROUP BY CT.CITY, C.GENDER
 ORDER BY CT.CITY, C.GENDER
 ````
 
+#### Result:
 | CITY           | GENDER | CUSTOMERCOUNT |
 | -------------- | ------ | ------------- |
 | ADANA          | E      | 10            |
@@ -248,6 +252,7 @@ SELECT TOP 10 CITY,
 FROM CITIES C
 ````
 
+#### Result:
 | CITY           | MALECOUNT | FEMALECOUNT |
 | -------------- | --------- | ----------- |
 | ADANA          | 10        | 6           |
@@ -286,6 +291,8 @@ WHERE DATEDIFF(YEAR, BIRTHDATE, GETDATE()) BETWEEN 56 AND 65
 UPDATE CUSTOMERS SET AGEGROUP='65 Over'
 WHERE DATEDIFF(YEAR, BIRTHDATE, GETDATE()) > 65
 ````
+
+#### Result:
 | CUSTOMERNAME          | AGEGROUP  | AGE |
 | --------------------- | --------- | --- |
 | Sevda AKÇAN           | 56-65 Age | 59  |
@@ -309,6 +316,7 @@ GROUP BY AGEGROUP
 ORDER BY CUSTOMERCOUNT DESC
 ````
 
+#### Result:
 | AGEGROUP  | CUSTOMERCOUNT |
 | --------- | ------------- |
 | 65 Over   | 266           |
@@ -374,6 +382,8 @@ INNER JOIN DISTRICTS D ON D.ID = C.DISTRICTID
 WHERE CT.CITY = 'İSTANBUL' AND D.DISTRICT != 'KADIKÖY'
 ````
 
+
+#### Result:
 | ID  | CUSTOMERNAME          | TCNUMBER    | GENDER | EMAIL                  | BIRTHDATE  | CITYID | DISTRICTID | TELNR1       | TELNR2       | AGEGROUP  |
 | --- | --------------------- | ----------- | ------ | ---------------------- | ---------- | ------ | ---------- | ------------ | ------------ | --------- |
 | 15  | Yasin AĞAGÜL          | 32764684197 | E      | y_agagvl@miuul.com     | 19.10.1979 | 34     | 897        | (532)6102663 | (537)3381012 | 36-45 Age |
@@ -411,7 +421,7 @@ INSERT INTO inserts one or more records into a table. This is called an insertio
 
 IDENTITY_INSERT allows us to enter data in the column with identity when entering data into the database.
 
-
+#### Result:
 | ID  | CUSTOMERNAME              | TCNUMBER    | GENDER | EMAIL                | BIRTHDATE  | CITYID | DISTRICTID | TELNR1       | TELNR2       | AGEGROUP    |
 | --- | ------------------------- | ----------- | ------ | -------------------- | ---------- | ------ | ---------- | ------------ | ------------ | ----------- |
 | 112 | Aslı GÜNE                 | 63618747382 | K      | a_gvne@miuul.com     | 6.05.1994  | 6      | 157        | (505)6442992 | (532)8235020 | 20-35 YAŞ   |
@@ -444,7 +454,7 @@ Solution -
 
 - The LEFT() function extracts a sequence of characters from a string (starting from the left).
 
-
+#### Result:
 | ID | CUSTOMERNAME          | TCNUMBER    | GENDER | EMAIL                  | BIRTHDATE  | CITYID | DISTRICTID | TELNR1       | TELNR2       | AGEGROUP    | OPERATOR1 | OPERATOR2 |
 | -- | --------------------- | ----------- | ------ | ---------------------- | ---------- | ------ | ---------- | ------------ | ------------ | ----------- | --------- | --------- |
 | 1  | Sevda AKÇAN           | 42074151323 | K      | s_akcan@miuul.com      | 12.05.1964 | 22     | 202        | (542)5255514 | (532)3438190 | 55-65 YAŞ   | 542       | 532       |
@@ -497,6 +507,7 @@ END AS TELNR2_Z
 FROM CUSTOMERS) TT
 ```
 
+#### Result:
 | OPERATOR_X | OPERATOR_Y | OPERATOR_Z |
 | ---------- | ---------- | ---------- |
 | 461        | 478        | 963        |
@@ -515,7 +526,7 @@ INNER JOIN DISTRICTS D ON D.ID = C.DISTRICTID
 GROUP BY CT.CITIES,D.DISTRICT
 ORDER BY 1,3 DESC
 ````
- 
+#### Result:
 | CITIES         | DISTRICT              | CUSTOMERCOUNT |
 | -------------- | --------------------- | ------------- |
 | ADANA          | SEYHAN                | 8             |
@@ -557,6 +568,7 @@ FROM CUSTOMERS
 #### Steps:
 - DATENAME() returns the name of the parameter typed at the beginning
 
+#### Result:
 | CUSTOMERNAME          | BIRTHDAY  |
 | --------------------- | --------- |
 | Sevda AKÇAN           | Salı      |
@@ -582,7 +594,7 @@ SELECT CUSTOMERNAME, BIRTHDATE ,DATEPART(DAYOFYEAR, BIRTHDATE) DAY_OF_YEAR,
 DATENAME(DW,BIRTHDATE) AS BIRTHDAY
 FROM CUSTOMERS;
 ```
-
+#### Result:
 | CUSTOMERNAME          | BIRTHDATE  | DAY_OF_YEAR | BIRTHDAY  |
 | --------------------- | ---------- | ----------- | --------- |
 | Sevda AKÇAN           | 12.05.1964 | 133         | Tuesday   |
@@ -617,7 +629,7 @@ FROM CUSTOMERS
 WHERE DATEPART(DAYOFYEAR, GETDATE()) = DATEPART(DAYOFYEAR, BIRTHDATE);
 ```
 
-#### Cevap:
+#### Result:
 | ID  | CUSTOMERNAME      | TCNUMBER    | GENDER | EMAIL                | BIRTHDATE  | CITYID | DISTRICTID | TELNR1       | TELNR2       | AGEGROUP    |
 | --- | ----------------- | ----------- | ------ | -------------------- | ---------- | ------ | ---------- | ------------ | ------------ | ----------- |
 | 15  | Yasin AĞAGÜL      | 32764684197 | E      | y_agagvl@miuul.com   | 19.10.1979 | 34     | 897        | (532)6102663 | (537)3381012 | 36-45 YAŞ   |
