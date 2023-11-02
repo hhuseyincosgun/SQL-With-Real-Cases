@@ -299,7 +299,7 @@ WHERE DATEDIFF(YEAR, BIRTHDATE, GETDATE()) > 65
 | Ali Eymen DEVE        | 36-45 Age | 38  |
 | Muhammed Ali ABDULLAH | 36-45 Age | 36  |
 
-**Q12# Customers tablosunda müşterinin yaşına göre hesaplayarak toplam müşteri sayılarını yazdırınız.**
+**Q12# Listing the number of customers according to age ranges.**
 
 Solution-1:
 ````sql
@@ -358,7 +358,7 @@ FROM CUSTOMERS
 GROUP BY AGEGROUP2
 ORDER BY AGEGROUP2 
 ````
-**Q13# İstanbul şehrinde yaşayıp Kadıköy dışında olanları listeleyiniz.**
+**Q13# Listing customers who live in Istanbul but not in Kadikoy.**
 
 Solution-1:
 ````sql
@@ -388,7 +388,7 @@ WHERE CT.CITY = 'İSTANBUL' AND D.DISTRICT != 'KADIKÖY'
 | 208 | Neslihan KILIÇÇEKER   | 53734331933 | K      | n_kilicceker@miuul.com | 4.10.1982  | 34     | 707        | (543)1432619 | (505)2287257 | 36-45 Age |
 |     |
 
-**Q13# Cities tablosundan "Ankara" kaydını sildiğimizi varsayalım. Bu durumda şehri "Ankara" olan müşterilerin şehir alanı boş gelecektir. Şehir alanı boş olan müşterileri listeleyen sorguyu yazınız.**
+**Q14# Suppose we delete the "Ankara" record from the Cities table. In this case, the city column of customers whose city is "Ankara" will be empty. Write the query that lists the customers with empty city column.**
 
 ````sql
 UPDATE CITIES SET CITIES = NULL WHERE ID= 6
@@ -407,11 +407,11 @@ SET IDENTITY_INSERT CITIES OFF -- ID için idendity_insert değerini kapattık.
 ````
 #### Steps
 
-INSERT INTO tabloya bir veya birden çok kayıt ekler. Bu ekleme sorgusu olarak adlandırılır.
+INSERT INTO inserts one or more records into a table. This is called an insertion query.
 
-IDENTITY_INSERT veritabanına veri girişi yaparken identity olan kolona veri girebilmemizi sağlar.
+IDENTITY_INSERT allows us to enter data in the column with identity when entering data into the database.
 
-#### Cevap:
+
 | ID  | CUSTOMERNAME              | TCNUMBER    | GENDER | EMAIL                | BIRTHDATE  | CITYID | DISTRICTID | TELNR1       | TELNR2       | AGEGROUP    |
 | --- | ------------------------- | ----------- | ------ | -------------------- | ---------- | ------ | ---------- | ------------ | ------------ | ----------- |
 | 112 | Aslı GÜNE                 | 63618747382 | K      | a_gvne@miuul.com     | 6.05.1994  | 6      | 157        | (505)6442992 | (532)8235020 | 20-35 YAŞ   |
@@ -428,9 +428,9 @@ IDENTITY_INSERT veritabanına veri girişi yaparken identity olan kolona veri gi
 
 ***
 
-**15. Müşterilerimizin telefon numaralarının operatör bilgisini getirmek istiyoruz.(TELN1 ve TELNR2 alanlarının yanına operatör numarasını (532)(505) getirmek istiyoruz.) Bu sorgu için gereken SQL sorgusunu yazınız.**
+**Q15# We want to get the operator information of our customers' phone numbers. (We want to bring the operator number (532)(505) next to the TELN1 and TELNR2). Write the SQL query required for this query.**
 
-Çözüm -
+Solution -
 
 ````sql
  SELECT TOP 10 *,
@@ -439,13 +439,12 @@ IDENTITY_INSERT veritabanına veri girişi yaparken identity olan kolona veri gi
  FROM CUSTOMERS
 ````
 
-#### Basamaklar:
-- String verilerde istenilen karakter kadar verinin geri döndürülmesini sağlamak için SUBSTRING fonksiyonu kullanılır
+#### Steps:
+- For string data, the SUBSTRING function is used to return as many characters as desired
 
-- The LEFT() fonksiyonu bir dizeden (soldan başlayarak) bir dizi karakter çıkarır.
+- The LEFT() function extracts a sequence of characters from a string (starting from the left).
 
 
-#### Cevap:
 | ID | CUSTOMERNAME          | TCNUMBER    | GENDER | EMAIL                  | BIRTHDATE  | CITYID | DISTRICTID | TELNR1       | TELNR2       | AGEGROUP    | OPERATOR1 | OPERATOR2 |
 | -- | --------------------- | ----------- | ------ | ---------------------- | ---------- | ------ | ---------- | ------------ | ------------ | ----------- | --------- | --------- |
 | 1  | Sevda AKÇAN           | 42074151323 | K      | s_akcan@miuul.com      | 12.05.1964 | 22     | 202        | (542)5255514 | (532)3438190 | 55-65 YAŞ   | 542       | 532       |
@@ -460,12 +459,11 @@ IDENTITY_INSERT veritabanına veri girişi yaparken identity olan kolona veri gi
 | 10 | Muhammed Ali ABDULLAH | 64660973116 | E      | m_ali@miuul.com        | 7.05.1987  | 25     | 851        | (536)4359524 | (532)3864478 | 36-45 YAŞ   | 536       | 532       |
 |    |
 
-
 ***
 
-**16.Müşterilerimizin telefon numaralarının operatör bilgisini getirmek istiyoruz. Örneğin telefon numaraları "50"ya da "55"ile başlayan X, "54" ile başlayan Y, "53" ile başlayan Z operatörü olsun. Burada hangi operatörden ne kadar müşterimiz olduğunu bilgisini getirecek sorguyu yazınız.**
+**Q16# We want to retrieve the operator information of our customers' phone numbers. For example, let X operator whose phone numbers start with "50" or "55", Y operator whose phone numbers start with "54" and Z operator whose phone numbers start with "53". Here, write the query that will bring the information about how many customers we have from which operator.**
 
-Çözüm -
+Solution -
 
 ```sql
 SELECT SUM(TELNR1_X + TELNR2_X) AS OPERATOR_X,
@@ -499,7 +497,6 @@ END AS TELNR2_Z
 FROM CUSTOMERS) TT
 ```
 
-#### Cevap:
 | OPERATOR_X | OPERATOR_Y | OPERATOR_Z |
 | ---------- | ---------- | ---------- |
 | 461        | 478        | 963        |
@@ -507,9 +504,9 @@ FROM CUSTOMERS) TT
 
 ***
 
-**17.Her ilde en çok müşteriye sahip olduğumuz ilçeleri müşteri sayısına göre çoktan za doğru sıralı şekilde getiren sorguyu yazınız.**
+**Q17# Write the query that brings the districts where we have the most customers in each province in order from most to least according to the number of customers.**
 
-Çözüm -
+Solution -
 
 ````sql
 SELECT TOP 20 CT.CITIES,D.DISTRICT, COUNT(C.ID) AS CUSTOMERCOUNT FROM CUSTOMERS C
@@ -519,8 +516,6 @@ GROUP BY CT.CITIES,D.DISTRICT
 ORDER BY 1,3 DESC
 ````
  
-
-#### Cevap:
 | CITIES         | DISTRICT              | CUSTOMERCOUNT |
 | -------------- | --------------------- | ------------- |
 | ADANA          | SEYHAN                | 8             |
@@ -548,9 +543,9 @@ ORDER BY 1,3 DESC
 
 ***
 
-**18. Müşterilerin doğum günlerini türkçe haftanın günleri olarak getiren sorguyu yazınız.**
+**Q18# Write the query that brings customers' birthdays as days of the week in Turkish.**
 
-Çözüm -
+Solution -
 
 ```sql
 SET LANGUAGE Turkish
@@ -559,11 +554,9 @@ DATENAME(DW,BIRTHDATE) AS BIRTHDAY
 FROM CUSTOMERS
 ```
 
-#### Basamaklar:
-- DATENAME() başa yazılan parametrenin adını döner
+#### Steps:
+- DATENAME() returns the name of the parameter typed at the beginning
 
-
-#### Cevap:
 | CUSTOMERNAME          | BIRTHDAY  |
 | --------------------- | --------- |
 | Sevda AKÇAN           | Salı      |
@@ -578,70 +571,51 @@ FROM CUSTOMERS
 | Muhammed Ali ABDULLAH | Perşembe  |
 |                       |
 
-
 ***
 
+**Q19# Write the query that shows which day of the year customers' birthdays correspond to this year.**
 
-**19. Müşterilerin doğum günlerinin bu yıl hangi güne denk geldiğini gösteren sorguyu yazınız.**
-
-Cevap -
+Solution -
 
 ```sql
-
-SELECT TOP 10 *,
-	CASE
-		WHEN KMKK.KACGUNGECTI%7 = 0 THEN DATENAME(weekday, GETDATE())
-		WHEN KMKK.KACGUNGECTI%7 = 1 THEN DATENAME(weekday, DATEADD(day, -6, GETDATE()))
-		WHEN KMKK.KACGUNGECTI%7 = 2 THEN DATENAME(weekday, DATEADD(day, -5, GETDATE()))
-		WHEN KMKK.KACGUNGECTI%7 = 3 THEN DATENAME(weekday, DATEADD(day, -4, GETDATE()))
-		WHEN KMKK.KACGUNGECTI%7 = 4 THEN DATENAME(weekday, DATEADD(day, -3, GETDATE()))
-		WHEN KMKK.KACGUNGECTI%7 = 5 THEN DATENAME(weekday, DATEADD(day, -2, GETDATE()))
-		WHEN KMKK.KACGUNGECTI%7 = 6 THEN DATENAME(weekday, DATEADD(day, -1, GETDATE()))
-	END AS HANGIGUN
-FROM
-(SELECT KMK.CUSTOMERNAME, DATEDIFF(DAY,KMK.BIRTHDATE,KMK.TODAYSDATE) AS KACGUNGECTI
-FROM 
-(SELECT *, GETDATE() AS TODAYSDATE FROM CUSTOMERS) KMK)KMKK
+SELECT CUSTOMERNAME, BIRTHDATE ,DATEPART(DAYOFYEAR, BIRTHDATE) DAY_OF_YEAR,
+DATENAME(DW,BIRTHDATE) AS BIRTHDAY
+FROM CUSTOMERS;
 ```
 
-#### Basamaklar:
-- DATEADD() Belirtilen bir zaman aralığını tarihe eklemek veya tarihten çıkarmak için DateAdd işlevini kullanabilirsiniz.
-
-#### Cevap:
-| CUSTOMERNAME          | KACGUNGECTI | HANGIGUN  |
-| --------------------- | ----------- | --------- |
-| Sevda AKÇAN           | 21709       | Cumartesi |
-| Sebahat ŞERALI        | 29350       | Çarşamba  |
-| Irmak HAMİDİ          | 18237       | Cumartesi |
-| Tuğçe AKKOÇ           | 23874       | Pazartesi |
-| Necdet ERÇAM          | 13664       | Perşembe  |
-| Ahmet İNCİKAPI        | 11832       | Cumartesi |
-| Arif TEMELOĞLU        | 20401       | Pazar     |
-| Elif ÖZÇELİKBAŞ       | 11092       | Pazartesi |
-| Ali Eymen DEVE        | 14148       | Cuma      |
-| Muhammed Ali ABDULLAH | 13314       | Perşembe  |
-|                       |
+| CUSTOMERNAME          | BIRTHDATE  | DAY_OF_YEAR | BIRTHDAY  |
+| --------------------- | ---------- | ----------- | --------- |
+| Sevda AKÇAN           | 12.05.1964 | 133         | Tuesday   |
+| Sebahat ŞERALI        | 11.06.1943 | 162         | Friday    |
+| Irmak HAMİDİ          | 13.11.1973 | 317         | Tuesday   |
+| Tuğçe AKKOÇ           | 8.06.1958  | 159         | Sunday    |
+| Necdet ERÇAM          | 22.05.1986 | 142         | Thursday  |
+| Ahmet İNCİKAPI        | 28.05.1991 | 148         | Tuesday   |
+| Arif TEMELOĞLU        | 11.12.1967 | 345         | Monday    |
+| Elif ÖZÇELİKBAŞ       | 6.06.1993  | 157         | Sunday    |
+| Ali Eymen DEVE        | 23.01.1985 | 23          | Wednesday |
+| Muhammed Ali ABDULLAH | 7.05.1987  | 127         | Thursday  |
+| Nazife DEVE           | 13.10.1967 | 286         | Friday    |
+| İhsan HAVAS           | 12.04.1955 | 102         | Tuesday   |
 
 ***
 
-**20.Doğum günü bugün olan müşterileri listeleyiniz.**
+**Q20# List customers whose birthday is today.**
 
-Çözüm-1
+Solution-1
 
 ```sql
 SELECT * FROM CUSTOMERS
 WHERE DATEPART(DAY,BIRTHDATE)=DATEPART(DAY,GETDATE()) AND DATEPART(MONTH,BIRTHDATE)=DATEPART(MONTH,GETDATE()) 
 ```
 
-Çözüm-2
+Solution-2
 
 ```sql
 SELECT CUSTOMERNAME, BIRTHDATE ,DATEPART(DAYOFYEAR, BIRTHDATE) AS 'BIRTH DAY'
 FROM CUSTOMERS
 WHERE DATEPART(DAYOFYEAR, GETDATE()) = DATEPART(DAYOFYEAR, BIRTHDATE);
 ```
-#### Basamaklar:
-- DATEPART: Verilen tarih-saat parametresini parçalarına ayırıp istenilen parçayı almaya yarar
 
 #### Cevap:
 | ID  | CUSTOMERNAME      | TCNUMBER    | GENDER | EMAIL                | BIRTHDATE  | CITYID | DISTRICTID | TELNR1       | TELNR2       | AGEGROUP    |
