@@ -5,11 +5,11 @@ Learning SQL with real-world cases is a practical and effective way to master th
 
 1.  **Understand the Basics:**
     
-    -   Start with the fundamentals of SQL, including the basic syntax, data types, and common commands (SELECT, INSERT, UPDATE, DELETE).
+    -   Start with the fundamentals of SQL, including the basic syntax, data types, and common commands (**SELECT, INSERT, UPDATE, DELETE**).
     -   Familiarize yourself with key concepts like tables, rows, columns, and relationships between tables.
 2.  **Set Up a Database:**
     
-    -   Install a relational database management system (RDBMS) like MySQL, PostgreSQL, or SQLite on your machine.
+    -   Install a relational database management system (RDBMS) like **MySQL, PostgreSQL, or SQLite** on your machine.
     -   Create a sample database with tables and some data to work with.
 3.  **Real Case Examples:**
     
@@ -20,18 +20,18 @@ Learning SQL with real-world cases is a practical and effective way to master th
 4.  **Create SQL Queries:**
     
     -   Formulate SQL queries that address the specific needs of each case.
-    -   Practice writing SELECT statements with various clauses (WHERE, GROUP BY, ORDER BY) to filter and sort data.
+    -   Practice writing SELECT statements with various clauses (**WHERE, GROUP BY, ORDER BY**) to filter and sort data.
 5.  **Manipulate Data:**
     
-    -   Practice using SQL commands to insert, update, and delete records.
-    -   Understand how to modify the structure of tables with ALTER TABLE statements.
+    -   Practice using SQL commands to **insert, update, and delete** records.
+    -   Understand how to modify the structure of tables with **ALTER TABLE** statements.
 6.  **Joins and Relationships:**
     
     -   Learn how to perform joins to retrieve data from multiple tables.
     -   Understand the concept of foreign keys and how they establish relationships between tables.
 7.  **Aggregation and Grouping:**
     
-    -   Use GROUP BY and aggregate functions (SUM, AVG, COUNT) to analyze data at a higher level.
+    -   Use **GROUP BY** and aggregate functions (**SUM, AVG, COUNT**) to analyze data at a higher level.
     -   Solve problems that involve summarizing information from the database.
 8.  **Subqueries:**
     
