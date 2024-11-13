@@ -1,4 +1,4 @@
-# Learning SQL With Real Cases
+# SQL With Real Cases
 
 ## 📚 Table of Contents
 - [Case #1 - Customer Information](https://github.com/hhuseyincosgun/Learning-SQL-With-Real-Cases/blob/main/Case%20%231%20-%20Customer%20Information/README.md)
